@@ -1,0 +1,39 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <section class="content-card">
+            <h2>Контакти</h2>
+            <p>Буду рада отримати ваше повідомлення.</p>
+
+            <form onsubmit="document.getElementById('form-message').hidden = false; return false;">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Ваше ім'я</label>
+                    <input type="text" class="form-control" id="name"
+                           name="name" placeholder="Введіть ім'я" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Електронна пошта</label>
+                    <input type="email" class="form-control" id="email"
+                           name="email" placeholder="example@email.com" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="message" class="form-label">Повідомлення</label>
+                    <textarea class="form-control" id="message"
+                              name="message" rows="5"
+                              placeholder="Ваше повідомлення" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Надіслати</button>
+                <p id="form-message" class="form-notice mt-3" hidden>
+                    Це демонстраційна форма. Повідомлення не надсилається.
+                </p>
+            </form>
+        </section>
+    </div>
+</div>
+{% endblock %}

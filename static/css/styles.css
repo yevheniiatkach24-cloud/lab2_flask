@@ -1,0 +1,90 @@
+
+body {
+    background-color: #f5f3ef;
+    color: #333333;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.site-header {
+    background-color: #d2b48c;
+    padding: 28px 0;
+    margin-bottom: 24px;
+}
+
+.site-header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.profile-card,
+.content-card,
+.section-menu {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+.profile-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 16px;
+}
+
+.content-card h2,
+.section-menu h3 {
+    font-size: 22px;
+    margin-bottom: 16px;
+    color: #735637;
+}
+
+.section-menu a {
+    display: block;
+    padding: 6px 0;
+    color: #735637;
+    text-decoration: none;
+}
+
+.section-menu a:hover {
+    text-decoration: underline;
+}
+
+.content-card {
+    scroll-margin-top: 20px;
+}
+
+.form-notice {
+    color: #735637;
+}
+
+.site-footer {
+    background-color: #292929;
+    color: #ffffff;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+.site-footer p {
+    margin: 0;
+}
+
+@media (max-width: 767px) {
+    .site-header h1 {
+        font-size: 25px;
+    }
+
+    .profile-card,
+    .content-card,
+    .section-menu {
+        padding: 18px;
+    }
+
+    .profile-photo {
+        width: 130px;
+        height: 130px;
+    }
+}

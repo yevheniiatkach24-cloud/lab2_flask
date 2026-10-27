@@ -1,0 +1,66 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row g-4">
+    <aside class="col-md-4">
+        <div class="profile-card text-center">
+            <img src="{{ url_for('static', filename='images/photo.jpg') }}"
+                 alt="Фото Євгенії Ткач"
+                 class="profile-photo">
+            <h2>{{ name }}</h2>
+            <p>Студентка програмної інженерії</p>
+        </div>
+
+        <nav class="section-menu">
+            <h3>Зміст резюме</h3>
+            <a href="#about">Про себе</a>
+            <a href="#education">Освіта</a>
+            <a href="#skills">Навички</a>
+            <a href="#technologies">Технології</a>
+            <a href="#experience">Досвід роботи</a>
+            <a href="#projects">Проєкти</a>
+        </nav>
+    </aside>
+
+    <div class="col-md-8">
+        <section id="about" class="content-card">
+            <h2>Про себе</h2>
+            <p>Я студентка програмної інженерії, цікавлюся веброзробкою та створенням програмних застосунків. Вивчаю нові технології та розвиваю практичні навички програмування.</p>
+        </section>
+
+        <section id="education" class="content-card">
+            <h2>Освіта</h2>
+            <p>Карпатський національний університет імені Василя Стефаника.</p>
+            <p>Спеціальність:інженерія програмного забезпечення.</p>
+        </section>
+
+        <section id="skills" class="content-card">
+            <h2>Навички</h2>
+            <ul>
+                <li>Основи алгоритмізації та програмування</li>
+                <li>Робота з HTML і CSS</li>
+                <li>Робота з Git і GitHub</li>
+                <li>Створення адаптивних вебсторінок</li>
+            </ul>
+        </section>
+
+        <section id="technologies" class="content-card">
+            <h2>Технології</h2>
+            <p>HTML, CSS, Python, Flask, Bootstrap, Git.</p>
+        </section>
+
+        <section id="experience" class="content-card">
+            <h2>Досвід роботи</h2>
+            <p>Комерційний досвід у сфері програмної розробки поки що відсутній. Отримую практичний досвід під час виконання навчальних проєктів.</p>
+        </section>
+
+        <section id="projects" class="content-card">
+            <h2>Проєкти</h2>
+            <p>Навчальні проєкти з програмування, створення вебсторінок і роботи з базовими технологіями веброзробки.</p>
+        </section>
+
+        <a href="{{ url_for('contacts') }}" class="btn btn-primary">Зв'язатися зі мною</a>
+    </div>
+</div>
+{% endblock %}
