@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+{% from "_macros.html" import render_field %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Контактна форма</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('contact') }}">
+        {{ form.hidden_tag() }}
+
+        {{ render_field(form.name) }}
+        {{ render_field(form.email) }}
+        {{ render_field(form.subject) }}
+        {{ render_field(form.message) }}
+
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}

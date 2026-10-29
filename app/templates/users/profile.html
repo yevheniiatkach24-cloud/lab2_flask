@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="{% if theme == 'dark' %}profile-dark{% else %}profile-light{% endif %}">
+    <div class="container py-4">
+        <h1>Профіль користувача</h1>
+        <p>Вітаємо, {{ username }}!</p>
+        <p>Ви успішно авторизувалися.</p>
+
+        <a href="{{ url_for('users.change_theme', theme='light') }}" class="btn btn-outline-primary">Світла тема</a>
+        <a href="{{ url_for('users.change_theme', theme='dark') }}" class="btn btn-outline-secondary">Темна тема</a>
+        <a href="{{ url_for('users.logout') }}" class="btn btn-danger">Вийти</a>
+
+        <hr>
+
+        <h2>Додати cookie</h2>
+        <form method="POST">
+            <input type="hidden" name="action" value="add">
+            <div class="mb-3">
+                <label class="form-label">Назва</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Значення</label>
+                <input type="text" name="value" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Термін дії (секунди)</label>
+                <input type="number" name="max_age" class="form-control" min="1" value="3600" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Додати cookie</button>
+        </form>
+
+        <hr>
+
+        <h2>Збережені cookies</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Ключ</th>
+                    <th>Значення</th>
+                    <th>Дія</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for name, value in cookies.items() %}
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>{{ value }}</td>
+                    <td>
+                        <form method="POST">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="name" value="{{ name }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Видалити</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3">Cookies відсутні.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <form method="POST">
+            <input type="hidden" name="action" value="delete_all">
+            <button type="submit" class="btn btn-warning">Видалити всі cookies</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    body:has(.profile-dark) {
+        background-color: #212529;
+        color: #f8f9fa;
+    }
+
+    .profile-dark {
+        background-color: #212529;
+        color: #f8f9fa;
+        min-height: 100vh;
+    }
+
+    .profile-dark .table {
+        color: #f8f9fa;
+        border-color: #6c757d;
+    }
+
+    .profile-dark .form-control {
+        background-color: #343a40;
+        color: #f8f9fa;
+        border-color: #6c757d;
+    }
+
+    .profile-light {
+        background-color: #fff;
+        color: #212529;
+        min-height: 100vh;
+    }
+</style>
+{% endblock %}

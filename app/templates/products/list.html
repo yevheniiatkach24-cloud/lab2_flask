@@ -1,23 +1,94 @@
-
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-    <h2>Список товарів</h2>
+<div class="container mt-4">
 
+    <h2>{{ title }}</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endwith %}
+
+    <a href="{{ url_for('products.product_add') }}"
+       class="btn btn-primary mb-3">
+        Додати товар
+    </a>
+
+    {% if products %}
     <div class="row">
+
         {% for product in products %}
-        <div class="col-md-4 mb-3">
-            <div class="card p-3 h-100">
-                <h3>{{ product.name }}</h3>
-                <p>Ціна: {{ product.price }} грн</p>
-                <a href="{{ url_for('products.product_detail', product_id=product.id) }}"
-                   class="btn btn-primary">
-                    Детальніше
-                </a>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+
+                {% if product.get('image') %}
+                <img
+                    src="{{ url_for('products.static', filename=product['image']) }}"
+                    class="card-img-top"
+                    alt="{{ product.get('name', 'Фото товару') }}"
+                    style="height: 200px; object-fit: contain;"
+                    onerror="this.style.display='none';"
+                >
+                {% else %}
+                <div class="text-center p-4 text-muted">
+                    Фото не додано
+                </div>
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        {{ product.get('name', 'Без назви') }}
+                    </h5>
+
+                    <p class="card-text">
+                        <strong>Ціна:</strong>
+                        {{ product.get('price', '0') }} грн
+                    </p>
+
+                    <p class="card-text">
+                        <strong>Категорія:</strong>
+                        {{ product.get('category', 'Не вказано') }}
+                    </p>
+
+                    <p class="card-text">
+                        <strong>Кількість:</strong>
+                        {{ product.get('quantity', 0) }}
+                    </p>
+
+                    <a href="{{ url_for('products.product_detail', product_id=product['id']) }}"
+                       class="btn btn-outline-primary mb-2">
+                        Детальніше
+                    </a>
+
+                    <a href="{{ url_for('products.product_edit', product_id=product['id']) }}"
+                       class="btn btn-warning mb-2">
+                        Редагувати
+                    </a>
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('products.product_delete', product_id=product['id']) }}"
+                        onsubmit="return confirm('Ви впевнені, що хочете видалити товар?');"
+                    >
+                        <button type="submit" class="btn btn-danger">
+                            Видалити
+                        </button>
+                    </form>
+
+                </div>
             </div>
         </div>
         {% endfor %}
+
     </div>
+    {% else %}
+        <p>Товарів поки немає.</p>
+    {% endif %}
+
 </div>
 {% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ title }}</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        {% for field in [form.name, form.content, form.price,
+                         form.category, form.quantity, form.image] %}
+            <div class="mb-3">
+                {{ field.label(class="form-label") }}
+
+                {% if field.name == "content" %}
+                    {{ field(class="form-control", rows=5, cols=40) }}
+                {% elif field.name == "image" %}
+                    {{ field(class="form-control",
+                             accept=".png,.jpg,.jpeg,image/png,image/jpeg") }}
+                {% else %}
+                    {{ field(class="form-control") }}
+                {% endif %}
+
+                {% for error in field.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        {% if product and product.get('image') %}
+            <div class="mb-3">
+                <p>Поточне зображення:</p>
+                <img
+                    src="{{ url_for('products.static',
+                                    filename=product['image']) }}"
+                    alt="{{ product.get('name', 'Фото товару') }}"
+                    style="max-width: 200px; height: auto;"
+                >
+                <p class="text-muted">
+                    Щоб залишити фото, не вибирай новий файл.
+                </p>
+            </div>
+        {% endif %}
+
+        {{ form.submit(class="btn btn-primary", value=action) }}
+
+        <a href="{{ url_for('products.product_list') }}"
+           class="btn btn-secondary">
+            Скасувати
+        </a>
+    </form>
+</div>
+{% endblock %}
