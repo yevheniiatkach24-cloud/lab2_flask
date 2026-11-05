@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ "Редагувати публікацію" if post else "Створити публікацію" }}</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST">
+        <div>
+            <label for="title">Назва:</label>
+            <input type="text" id="title" name="title"
+                   value="{{ post.title if post else '' }}" required>
+        </div>
+
+        <div>
+            <label for="content">Текст:</label>
+            <textarea id="content" name="content" required>{{ post.content if post else '' }}</textarea>
+        </div>
+
+        <div>
+            <label for="author">Автор:</label>
+            <input type="text" id="author" name="author"
+                   value="{{ post.author if post else '' }}">
+        </div>
+
+        <button type="submit">Зберегти</button>
+    </form>
+
+    <a href="{{ url_for('posts.index') }}">Назад до списку</a>
+</div>
+{% endblock %}
