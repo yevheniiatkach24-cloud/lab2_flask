@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Публікації</h1>
+
+    <a href="{{ url_for('posts.create') }}">Створити публікацію</a>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    {% if posts %}
+        {% for post in posts %}
+            <article>
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.content }}</p>
+                <p>Автор: {{ post.author }}</p>
+                <p>Статус: {{ "Активна" if post.is_active else "Неактивна" }}</p>
+
+                <a href="{{ url_for('posts.detail', id=post.id) }}">Переглянути</a>
+                <a href="{{ url_for('posts.update', id=post.id) }}">Редагувати</a>
+
+                <form action="{{ url_for('posts.delete', id=post.id) }}" method="POST">
+                    <button type="submit">Видалити</button>
+                </form>
+            </article>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>Публікацій поки немає.</p>
+    {% endif %}
+</div>
+{% endblock %}
